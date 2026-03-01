@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vérificateur PA Chorus Pro — par Romain Froment, Expert-Comptable</title>
+<meta name="description" content="Vérifiez le statut Plateforme Agréée de tous vos clients en 12 minutes. Outil gratuit par Romain Froment, Expert-Comptable.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0c1033;
+  --bleu: #000091;
+  --bleu-l: #e8e8ff;
+  --accent: #f26430;
+  --accent-l: #fff4ef;
+  --or: #c9a84c;
+  --or-l: #faf5e8;
+  --vert: #0fa968;
+  --vert-l: #edfdf5;
+  --blanc: #ffffff;
+  --bg: #f8f9fc;
+  --g50: #f3f4f8;
+  --g100: #e8eaf0;
+  --g200: #d1d4de;
+  --g400: #9298a8;
+  --g600: #5f6577;
+  --g800: #2d3142;
+  --r: 14px;
+  --shadow-sm: 0 1px 3px rgba(12,16,51,.06);
+  --shadow-md: 0 4px 16px rgba(12,16,51,.08);
+  --shadow-lg: 0 12px 40px rgba(12,16,51,.12);
+  --shadow-xl: 0 20px 60px rgba(12,16,51,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--g800);line-height:1.65;-webkit-font-smoothing:antialiased}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(242,100,48,.2)}50%{box-shadow:0 0 35px rgba(242,100,48,.35)}}
+@keyframes draw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.reveal.vis{opacity:1;transform:translateY(0)}
+
+/* ═══ HEADER ═══ */
+.hdr{
+  background:var(--navy);
+  position:relative;
+  overflow:hidden;
+}
+.hdr::before{
+  content:'';position:absolute;top:-40%;right:-15%;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(0,0,145,.25) 0%,transparent 70%);pointer-events:none;
+}
+.hdr::after{
+  content:'';position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;
+  background:radial-gradient(circle,rgba(242,100,48,.1) 0%,transparent 70%);pointer-events:none;
+}
+.tricolore{height:3px;background:linear-gradient(90deg,#000091 33%,#fff 33% 66%,#e1000f 66%)}
+.hdr-inner{
+  max-width:880px;margin:0 auto;padding:48px 28px 56px;position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+}
+.author-chip{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.07);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.1);
+  padding:8px 20px 8px 8px;border-radius:40px;margin-bottom:28px;
+  animation:fadeIn .8s ease;
+}
+.author-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--or));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:14px;color:#fff;
+  box-shadow:0 2px 8px rgba(242,100,48,.3);
+}
+.author-info{text-align:left}
+.author-name{color:#fff;font-weight:700;font-size:13px;letter-spacing:.2px}
+.author-title{color:rgba(255,255,255,.45);font-size:11px;font-weight:500}
+
+.hdr h1{
+  font-family:'Playfair Display',serif;
+  color:#fff;font-weight:700;
+  font-size:clamp(30px,4.8vw,48px);
+  line-height:1.15;margin-bottom:18px;
+  letter-spacing:-.3px;
+  animation:fadeUp .7s ease .1s both;
+}
+.hdr h1 em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--accent),#ff8f62);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hdr-sub{
+  color:rgba(255,255,255,.55);font-size:16px;max-width:520px;
+  line-height:1.7;margin-bottom:36px;font-weight:400;
+  animation:fadeUp .7s ease .2s both;
+}
+.hdr-metrics{
+  display:flex;gap:32px;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp .7s ease .3s both;
+}
+.metric{text-align:center}
+.metric-val{
+  font-family:'Playfair Display',serif;font-size:38px;font-weight:700;
+  color:var(--accent);line-height:1.1;
+}
+.metric-val.green{color:var(--vert)}
+.metric-lbl{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-top:2px}
+.metric-sep{width:1px;background:rgba(255,255,255,.1);align-self:stretch;margin:4px 0}
+
+/* ═══ MAIN ═══ */
+.main{max-width:880px;margin:0 auto;padding:0 28px}
+
+/* ═══ INSTALL CARD ═══ */
+.install-section{margin-top:-32px;position:relative;z-index:2;margin-bottom:48px}
+.install-card{
+  background:var(--blanc);border:1px solid var(--g100);
+  border-radius:20px;padding:40px 36px;
+  box-shadow:var(--shadow-lg);
+  position:relative;overflow:hidden;
+}
+.install-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--bleu),var(--accent),var(--or));
+}
+.install-card-label{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--vert-l);color:var(--vert);
+  padding:5px 14px;border-radius:20px;
+  font-size:12px;font-weight:700;letter-spacing:.3px;
+  text-transform:uppercase;margin-bottom:18px;
+}
+.install-card h2{
+  font-family:'Playfair Display',serif;
+  font-size:26px;font-weight:700;margin-bottom:8px;color:var(--navy);
+}
+.install-card>p{color:var(--g600);font-size:15px;margin-bottom:24px;max-width:550px}
+
+/* Bookmarklet zone */
+.bm-area{
+  text-align:center;
+  padding:32px 24px;
+  background:linear-gradient(135deg,#fafbff 0%,#fff8f5 50%,#fafbff 100%);
+  border:2px dashed var(--g200);
+  border-radius:16px;
+  transition:.3s;
+  margin-bottom:20px;
+}
+.bm-area:hover{border-color:var(--accent);background:linear-gradient(135deg,#f8f9ff 0%,#fff4ef 50%,#f8f9ff 100%)}
+.bm-arrow{
+  font-size:20px;margin-bottom:10px;
+  animation:float 2s ease-in-out infinite;
+  color:var(--g400);
+}
+.bm-link{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 40px;
+  background:linear-gradient(135deg,#ffd557,#ffbe30,#f5a623);
+  color:#4a3500;font-weight:800;font-size:18px;
+  border-radius:12px;text-decoration:none;
+  cursor:grab;user-select:none;
+  box-shadow:0 4px 16px rgba(245,166,35,.3),0 1px 3px rgba(0,0,0,.1);
+  transition:transform .2s,box-shadow .2s;
+  border:2px solid rgba(255,255,255,.6);
+  letter-spacing:.2px;
+}
+.bm-link:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 8px 28px rgba(245,166,35,.4);animation:glow 2s infinite}
+.bm-link:active{cursor:grabbing;transform:scale(.97)}
+.bm-hint{font-size:13px;color:var(--g400);margin-top:12px;font-weight:500}
+.bm-hint strong{color:var(--g600)}
+
+.tip-bar{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;
+  background:var(--or-l);border:1px solid #efe3c3;
+  border-radius:10px;font-size:13px;color:#7a6530;
+}
+.tip-bar strong{font-weight:700;color:#5c4a1c}
+
+/* ═══ STEPS ═══ */
+.steps-section{margin-bottom:48px}
+.section-eyebrow{
+  font-size:11px;text-transform:uppercase;letter-spacing:2px;
+  font-weight:700;color:var(--bleu);margin-bottom:8px;
+}
+.section-heading{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,3vw,30px);font-weight:700;color:var(--navy);
+  margin-bottom:28px;line-height:1.2;
+}
+.steps-timeline{
+  display:flex;flex-direction:column;gap:0;
+  position:relative;
+}
+.steps-timeline::before{
+  content:'';position:absolute;left:23px;top:40px;bottom:40px;
+  width:2px;background:linear-gradient(to bottom,var(--bleu),var(--accent),var(--vert));
+  border-radius:2px;
+}
+.step{
+  display:flex;align-items:flex-start;gap:18px;
+  padding:16px 0;position:relative;
+}
+.step-dot{
+  width:48px;height:48px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;position:relative;z-index:1;
+  box-shadow:var(--shadow-sm);border:3px solid var(--blanc);
+}
+.step-dot.s1{background:var(--bleu-l)}
+.step-dot.s2{background:var(--accent-l)}
+.step-dot.s3{background:var(--bleu-l)}
+.step-dot.s4{background:var(--accent-l)}
+.step-dot.s5{background:var(--vert-l)}
+.step-body{
+  background:var(--blanc);border:1px solid var(--g100);
+  border-radius:12px;padding:16px 20px;flex:1;
+  box-shadow:var(--shadow-sm);
+  transition:.25s;
+}
+.step-body:hover{box-shadow:var(--shadow-md);transform:translateX(4px)}
+.step-body strong{color:var(--navy);font-weight:700;font-size:15px}
+.step-body span{color:var(--g600);font-size:14px}
+.step-body a{color:var(--bleu);font-weight:600;text-decoration:none}
+.step-body a:hover{text-decoration:underline}
+
+/* ═══ RESULT CARD ═══ */
+.result-card{
+  background:linear-gradient(135deg,var(--navy) 0%,#151a4a 100%);
+  border-radius:20px;padding:36px;
+  color:#fff;text-align:center;
+  margin-bottom:48px;
+  position:relative;overflow:hidden;
+}
+.result-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(0,0,145,.2),transparent 60%),
+             radial-gradient(ellipse at 70% 50%,rgba(242,100,48,.1),transparent 60%);
+  pointer-events:none;
+}
+.result-card>*{position:relative;z-index:1}
+.result-big{
+  font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,40px);
+  font-weight:700;margin-bottom:6px;
+}
+.result-big em{font-style:italic;color:var(--accent)}
+.result-sub{color:rgba(255,255,255,.5);font-size:15px;margin-bottom:24px}
+.result-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.pill{
+  padding:8px 18px;border-radius:30px;font-size:13px;font-weight:600;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.7);
+}
+
+/* ═══ FAQ ═══ */
+.faq-section{margin-bottom:56px}
+.faq-list{display:flex;flex-direction:column;gap:8px}
+.faq-item{
+  background:var(--blanc);border:1px solid var(--g100);
+  border-radius:12px;overflow:hidden;
+  transition:.2s;
+}
+.faq-item:hover{border-color:var(--g200)}
+.faq-item[open]{box-shadow:var(--shadow-sm)}
+.faq-item summary{
+  padding:16px 20px;font-weight:600;font-size:15px;
+  cursor:pointer;list-style:none;
+  display:flex;align-items:center;gap:12px;
+  color:var(--navy);transition:.2s;
+}
+.faq-item summary:hover{color:var(--bleu)}
+.faq-item summary::before{
+  content:'+';width:26px;height:26px;border-radius:8px;
+  background:var(--g50);display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700;color:var(--bleu);
+  flex-shrink:0;transition:.2s;
+}
+.faq-item[open] summary::before{content:'−';background:var(--bleu);color:#fff;border-radius:8px}
+.faq-item p{
+  padding:0 20px 16px 58px;
+  font-size:14px;color:var(--g600);line-height:1.75;
+}
+.faq-item code{
+  background:var(--g50);padding:2px 7px;border-radius:4px;
+  font-size:12px;font-family:'SF Mono',Monaco,monospace;
+}
+
+/* ═══ FOOTER ═══ */
+.footer{
+  border-top:1px solid var(--g100);
+  padding:36px 28px;text-align:center;
+}
+.footer-author{
+  display:inline-flex;align-items:center;gap:12px;
+  margin-bottom:12px;
+}
+.footer-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--bleu),var(--accent));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:15px;color:#fff;
+}
+.footer-info{text-align:left}
+.footer-name{font-weight:700;font-size:14px;color:var(--navy)}
+.footer-role{font-size:12px;color:var(--g400)}
+.footer-legal{font-size:11px;color:var(--g400);margin-top:8px;line-height:1.7}
+.footer-legal a{color:var(--g600);text-decoration:none}
+.footer-legal a:hover{text-decoration:underline}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:600px){
+  .hdr-inner{padding:36px 20px 44px}
+  .hdr-metrics{gap:20px}
+  .metric-sep{display:none}
+  .install-card{padding:28px 22px;border-radius:16px}
+  .bm-link{padding:14px 28px;font-size:16px}
+  .main{padding:0 16px}
+  .steps-timeline::before{left:19px}
+  .step-dot{width:40px;height:40px;font-size:17px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="hdr">
+  <div class="tricolore"></div>
+  <div class="hdr-inner">
+    <div class="author-chip">
+      <div class="author-avatar">RF</div>
+      <div class="author-info">
+        <div class="author-name">Romain Froment</div>
+        <div class="author-title">Expert-Comptable</div>
+      </div>
+    </div>
+    <h1>Vérifiez les <em>Plateformes&nbsp;Agréées</em> de tous vos clients en&nbsp;12&nbsp;minutes</h1>
+    <p class="hdr-sub">Un outil gratuit qui interroge l'annuaire Chorus Pro automatiquement pour chaque SIREN de votre portefeuille clients.</p>
+    <div class="hdr-metrics">
+      <div class="metric">
+        <div class="metric-val">20h+</div>
+        <div class="metric-lbl">Avant</div>
+      </div>
+      <div class="metric-sep"></div>
+      <div class="metric">
+        <div class="metric-val green">12 min</div>
+        <div class="metric-lbl">Après</div>
+      </div>
+      <div class="metric-sep"></div>
+      <div class="metric">
+        <div class="metric-val">2 500</div>
+        <div class="metric-lbl">SIREN traités</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- ═══ INSTALL ═══ -->
+  <section class="install-section reveal">
+    <div class="install-card">
+      <div class="install-card-label">✦ Installation unique</div>
+      <h2>Ajoutez l'outil à vos favoris</h2>
+      <p>Affichez votre barre de favoris, puis <strong>glissez</strong> le bouton doré vers cette barre. C'est tout.</p>
+
+      <div class="bm-area">
+        <div class="bm-arrow">↑ Glissez vers la barre de favoris ↑</div>
+        <a class="bm-link" href="javascript:void function(){%0Aif(document.getElementById('_pa'))return alert('D%C3%A9j%C3%A0 ouvert !');%0Aif(!location.hostname.includes('chorus-pro'))return alert('Ouvrez d%5C'abord l%5C'annuaire Chorus Pro et passez le CAPTCHA.');%0Avar tk;try{var sd=JSON.parse(sessionStorage.getItem('0-annuaire'));tk=sd.authzData;if(sd.access_token_expires_at&amp;amp;&amp;amp;Date.now()>sd.access_token_expires_at)return alert('Session expir%C3%A9e. Rechargez (F5), CAPTCHA, puis recliquez.')}catch(e){return alert('Passez d%5C'abord le CAPTCHA.')}%0Afunction boot(){%0Avar o=document.createElement('div');o.id='_pa';%0Ao.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;z-index:999999;background:#f5f5f5;overflow-y:auto;font-family:system-ui,sans-serif;color:#222;line-height:1.5';%0Ao.innerHTML='<div style=&amp;quot;background:#000091;color:#fff;padding:12px 20px;display:flex;align-items:center&amp;quot;><b style=&amp;quot;flex:1;font-size:17px&amp;quot;>%E2%AD%90 V%C3%A9rificateur PA Chorus Pro</b><span id=&amp;quot;_paBdg&amp;quot; style=&amp;quot;background:rgba(255,255,255,.2);padding:3px 12px;border-radius:12px;font-size:12px&amp;quot;>%E2%9C%85 Connect%C3%A9</span> <button onclick=&amp;quot;document.getElementById(%5C'_pa%5C').remove()&amp;quot; style=&amp;quot;margin-left:10px;background:rgba(255,255,255,.25);border:none;color:#fff;padding:5px 12px;border-radius:4px;cursor:pointer;font-size:13px&amp;quot;>%E2%9C%95</button></div><div style=&amp;quot;max-width:900px;margin:0 auto;padding:16px&amp;quot;><div id=&amp;quot;_paMsg&amp;quot; style=&amp;quot;display:none;padding:10px 14px;border-radius:6px;margin-bottom:10px;font-size:13px&amp;quot;></div><div style=&amp;quot;display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap&amp;quot;><div style=&amp;quot;flex:1;min-width:250px;background:#fff;border:1px solid #ddd;border-radius:8px;padding:14px&amp;quot;><b>1. Fichier Excel</b><br><div id=&amp;quot;_paDrop&amp;quot; style=&amp;quot;border:2px dashed #ccc;border-radius:6px;padding:14px;text-align:center;cursor:pointer;margin-top:8px&amp;quot; onclick=&amp;quot;document.getElementById(%5C'_paFi%5C').click()&amp;quot;>%F0%9F%93%8A <b style=&amp;quot;color:#000091&amp;quot;>Glissez ou cliquez</b><br><span style=&amp;quot;font-size:11px;color:#999&amp;quot;>.xlsx .xls .csv</span><input type=&amp;quot;file&amp;quot; id=&amp;quot;_paFi&amp;quot; accept=&amp;quot;.xlsx,.xls,.csv&amp;quot; style=&amp;quot;display:none&amp;quot;></div><div id=&amp;quot;_paFI&amp;quot; style=&amp;quot;font-size:12px;color:#666;margin-top:4px&amp;quot;></div></div><div style=&amp;quot;flex:1;min-width:250px;background:#fff;border:1px solid #ddd;border-radius:8px;padding:14px&amp;quot;><b>2. Lancer</b><br><div style=&amp;quot;margin-top:8px;display:flex;gap:6px;align-items:center;flex-wrap:wrap&amp;quot;><button id=&amp;quot;_paGo&amp;quot; onclick=&amp;quot;_paStart()&amp;quot; disabled style=&amp;quot;padding:7px 18px;background:#000091;color:#fff;border:none;border-radius:4px;font-weight:600;cursor:pointer;font-size:13px&amp;quot;>%E2%96%B6 Lancer</button><button id=&amp;quot;_paPa&amp;quot; onclick=&amp;quot;_paPause()&amp;quot; style=&amp;quot;display:none;padding:7px 12px;background:#fff;color:#000091;border:1px solid #000091;border-radius:4px;cursor:pointer;font-size:13px&amp;quot;>%E2%8F%B8</button><button id=&amp;quot;_paRe&amp;quot; onclick=&amp;quot;_paResume()&amp;quot; style=&amp;quot;display:none;padding:7px 12px;background:#fff;color:#000091;border:1px solid #000091;border-radius:4px;cursor:pointer;font-size:13px&amp;quot;>%E2%96%B6</button><button id=&amp;quot;_paSt&amp;quot; onclick=&amp;quot;_paStop()&amp;quot; style=&amp;quot;display:none;padding:7px 12px;background:#e1000f;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:13px&amp;quot;>%E2%96%A0</button><label style=&amp;quot;font-size:12px;color:#666&amp;quot;>D%C3%A9lai <input id=&amp;quot;_paDl&amp;quot; type=&amp;quot;number&amp;quot; value=&amp;quot;300&amp;quot; min=&amp;quot;100&amp;quot; max=&amp;quot;2000&amp;quot; step=&amp;quot;50&amp;quot; style=&amp;quot;width:50px;text-align:center;font-size:12px&amp;quot;> ms</label></div><div id=&amp;quot;_paEst&amp;quot; style=&amp;quot;font-size:12px;color:#666;margin-top:4px&amp;quot;></div></div></div><div id=&amp;quot;_paPrg&amp;quot; style=&amp;quot;display:none;background:#fff;border:1px solid #ddd;border-radius:8px;padding:12px;margin-bottom:10px&amp;quot;><div style=&amp;quot;display:flex;justify-content:space-between;font-size:13px;color:#666&amp;quot;><span id=&amp;quot;_paPL&amp;quot;>V%C3%A9rification...</span><span id=&amp;quot;_paPP&amp;quot;>0%25</span></div><div style=&amp;quot;background:#eee;border-radius:4px;height:8px;margin:6px 0;overflow:hidden&amp;quot;><div id=&amp;quot;_paPB&amp;quot; style=&amp;quot;height:100%25;background:linear-gradient(90deg,#000091,#6a6af4);border-radius:4px;width:0;transition:width .3s&amp;quot;></div></div><div style=&amp;quot;display:flex;justify-content:space-between;font-size:12px;color:#666&amp;quot;><span id=&amp;quot;_paPC&amp;quot;>0/0</span><span id=&amp;quot;_paPE&amp;quot;></span></div><div style=&amp;quot;display:flex;gap:12px;margin-top:6px;font-size:12px;flex-wrap:wrap&amp;quot;><span>%F0%9F%9F%A2 PA Oui: <b id=&amp;quot;_xO&amp;quot;>0</b></span><span>%F0%9F%9F%A0 PA Non: <b id=&amp;quot;_xN&amp;quot;>0</b></span><span>%E2%9A%AA Introuvable: <b id=&amp;quot;_x4&amp;quot;>0</b></span><span>%F0%9F%94%B4 Erreurs: <b id=&amp;quot;_xE&amp;quot;>0</b></span></div></div><div id=&amp;quot;_paRes&amp;quot; style=&amp;quot;display:none;background:#fff;border:1px solid #ddd;border-radius:8px;overflow:hidden&amp;quot;><div style=&amp;quot;padding:10px 14px;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px&amp;quot;><b style=&amp;quot;font-size:14px&amp;quot;>R%C3%A9sultats <span id=&amp;quot;_paRC&amp;quot;></span></b><div><button id=&amp;quot;_paEx&amp;quot; onclick=&amp;quot;_paXpR()&amp;quot; disabled style=&amp;quot;padding:6px 14px;background:#18753c;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600;margin-right:4px&amp;quot;>%F0%9F%93%A5 R%C3%A9sultats</button><button id=&amp;quot;_paUp&amp;quot; onclick=&amp;quot;_paXpU()&amp;quot; disabled style=&amp;quot;padding:6px 14px;background:#fff;color:#000091;border:1px solid #000091;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600&amp;quot;>%F0%9F%93%A5 Fichier MAJ</button></div></div><div style=&amp;quot;max-height:400px;overflow-y:auto&amp;quot;><table style=&amp;quot;width:100%25;border-collapse:collapse;font-size:12px&amp;quot;><thead><tr style=&amp;quot;background:#f6f6f6;position:sticky;top:0&amp;quot;><th style=&amp;quot;padding:6px 8px;text-align:left;font-size:11px;border-bottom:2px solid #ddd&amp;quot;>SIREN</th><th style=&amp;quot;padding:6px 8px;text-align:left;font-size:11px;border-bottom:2px solid #ddd&amp;quot;>NOM FICHIER</th><th style=&amp;quot;padding:6px 8px;text-align:left;font-size:11px;border-bottom:2px solid #ddd&amp;quot;>NOM CHORUS</th><th style=&amp;quot;padding:6px 8px;text-align:left;font-size:11px;border-bottom:2px solid #ddd&amp;quot;>PA</th><th style=&amp;quot;padding:6px 8px;text-align:left;font-size:11px;border-bottom:2px solid #ddd&amp;quot;>STATUT</th></tr></thead><tbody id=&amp;quot;_paTb&amp;quot;></tbody></table></div></div></div>';%0Adocument.body.appendChild(o);%0Avar D={list:[],res:[],oD:null,oH:null,sC:-1,pC:-1,pau:false,idx:0,ab:false,t0:0};%0Avar dz=document.getElementById('_paDrop'),fi=document.getElementById('_paFi');%0Adz.ondragover=function(e){e.preventDefault();dz.style.borderColor='#000091'};%0Adz.ondragleave=function(){dz.style.borderColor='#ccc'};%0Adz.ondrop=function(e){e.preventDefault();dz.style.borderColor='#ccc';if(e.dataTransfer.files.length)lf(e.dataTransfer.files[0])};%0Afi.onchange=function(){if(fi.files.length)lf(fi.files[0])};%0Afunction lf(f){%0Avar r=new FileReader();r.onload=function(e){%0Atry{var wb=XLSX.read(new Uint8Array(e.target.result),{type:'array'});var rw=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,defval:''});if(rw.length<2)throw'Vide';var h=rw[0].map(function(x){return String(x).trim()});D.oH=h;D.oD=rw;D.sC=-1;for(var i=0;i<h.length;i++){if(/^siren%24/i.test(h[i])){D.sC=i;break}}if(D.sC<0)for(var i=0;i<h.length;i++){if(/siren/i.test(h[i])){D.sC=i;break}}if(D.sC<0)throw'Colonne SIREN introuvable';D.pC=-1;for(var i=0;i<h.length;i++){if(/plateforme|^pa%24/i.test(h[i])){D.pC=i;break}}var nC=-1;for(var i=0;i<h.length;i++){if(/^nom%24/i.test(h[i])){nC=i;break}}var m={};D.list=[];for(var i=1;i<rw.length;i++){var s=String(rw[i][D.sC]||'').replace(/%5CD/g,'').slice(0,9);if(s.length===9&amp;amp;&amp;amp;!m[s]){m[s]=1;D.list.push({s:s,n:nC>=0?String(rw[i][nC]||'').trim():''})}}D.res=[];D.idx=0;if(!D.list.length)throw'Aucun SIREN valide';dz.innerHTML='%E2%9C%85 <b>'+f.name+'</b><br><span style=&amp;quot;font-size:11px;color:#666&amp;quot;>'+D.list.length+' SIREN uniques</span>';dz.style.borderColor='#18753c';dz.style.borderStyle='solid';dz.style.background='#f0fff4';document.getElementById('_paGo').disabled=false;var ms=parseInt(document.getElementById('_paDl').value)||300;var sc=Math.round(D.list.length*ms/1000);document.getElementById('_paEst').textContent=D.list.length+' SIREN ~'+Math.floor(sc/60)+'min '+sc%2560+'s';msg('ok','Fichier charg%C3%A9 ! Cliquez Lancer.')}catch(er){msg('err',''+er)}};r.readAsArrayBuffer(f)}%0Awindow._paStart=function(){%0Atry{var sd2=JSON.parse(sessionStorage.getItem('0-annuaire'));tk=sd2.authzData;if(sd2.access_token_expires_at&amp;amp;&amp;amp;Date.now()>sd2.access_token_expires_at){msg('err','Session expir%C3%A9e ! Rechargez la page.');return}}catch(e){msg('err','Session perdue.');return}%0Aif(!D.list.length){msg('err','Chargez un fichier.');return}%0AD.pau=false;D.ab=false;D.idx=0;D.res=[];D.t0=Date.now();%0Adocument.getElementById('_paGo').style.display='none';%0Adocument.getElementById('_paPa').style.display='';document.getElementById('_paSt').style.display='';%0Adocument.getElementById('_paPrg').style.display='block';document.getElementById('_paRes').style.display='block';%0Adocument.getElementById('_paTb').innerHTML='';msg('','');%0AdoLoop()};%0Afunction doLoop(){%0Avar ms=parseInt(document.getElementById('_paDl').value)||300;var tot=D.list.length;%0Afunction nx(){%0Aif(D.idx>=tot||D.ab){if(!D.ab)done();return}%0Aif(D.pau)return;%0Avar sir=D.list[D.idx].s,nom=D.list[D.idx].n;%0Afetch('/annuaire/annuaire-api/unite-legale/'+sir,{headers:{'Authorization':'Bearer '+tk}}).then(function(rp){%0Aif(rp.status===401){msg('err','Session expir%C3%A9e ! Fermez, rechargez, CAPTCHA, recliquez le favori.');return null}%0Aif(rp.status===404)return{s:sir,nF:nom,nC:'',pa:'-',st:'Introuvable'};%0Aif(!rp.ok)return{s:sir,nF:nom,nC:'',pa:'-',st:'Err'+rp.status};%0Areturn rp.json().then(function(a){if(!Array.isArray(a))a=[a];var u,l;for(var i=0;i<a.length;i++){if(a[i].type==='UNITE_LEGALE')u=a[i];if(a[i].type==='LIGNE_ANNUAIRE_SIREN')l=a[i]}return{s:sir,nF:nom,nC:(u&amp;amp;&amp;amp;u.companyName)||(l&amp;amp;&amp;amp;l.companyName)||'',pa:(u&amp;amp;&amp;amp;u.approvedAssociatedPlatform)?'Oui':'Non',st:'OK'}})%0A}).catch(function(){return{s:sir,nF:nom,nC:'',pa:'-',st:'Erreur'}}).then(function(r){if(!r)return;D.res.push(r);D.idx++;if(D.idx%255===0||D.idx===tot)uiUp();setTimeout(nx,ms)})%0A}nx()}%0Awindow._paPause=function(){D.pau=true;document.getElementById('_paPa').style.display='none';document.getElementById('_paRe').style.display='';document.getElementById('_paPL').textContent='%E2%8F%B8 Pause'};%0Awindow._paResume=function(){D.pau=false;document.getElementById('_paRe').style.display='none';document.getElementById('_paPa').style.display='';document.getElementById('_paPL').textContent='V%C3%A9rification...';doLoop()};%0Awindow._paStop=function(){D.ab=true;document.getElementById('_paPa').style.display='none';document.getElementById('_paRe').style.display='none';document.getElementById('_paSt').style.display='none';var b=document.getElementById('_paGo');b.style.display='';b.disabled=false;b.textContent='%E2%96%B6 Relancer';document.getElementById('_paPL').textContent='%E2%8F%B9 Arr%C3%AAt%C3%A9';enX()};%0Afunction done(){%0Adocument.getElementById('_paPa').style.display='none';document.getElementById('_paSt').style.display='none';%0Avar b=document.getElementById('_paGo');b.style.display='';b.disabled=false;b.textContent='%E2%96%B6 Relancer';%0Adocument.getElementById('_paPL').textContent='%E2%9C%85 Termin%C3%A9 !';document.getElementById('_paPB').style.background='#18753c';enX();%0Avar s=Math.round((Date.now()-D.t0)/1000);document.getElementById('_paPE').textContent='Dur%C3%A9e: '+Math.floor(s/60)+'min '+s%2560+'s';%0Amsg('ok','Termin%C3%A9 ! '+D.res.length+' SIREN en '+Math.floor(s/60)+'min '+s%2560+'s')}%0Afunction enX(){document.getElementById('_paEx').disabled=!D.res.length;document.getElementById('_paUp').disabled=!D.res.length}%0Afunction uiUp(){%0Avar c=D.idx,t=D.list.length,p=Math.round(c/t*100);%0Adocument.getElementById('_paPB').style.width=p+'%25';document.getElementById('_paPP').textContent=p+'%25';%0Adocument.getElementById('_paPC').textContent=c+'/'+t;document.getElementById('_paRC').textContent='('+c+')';%0Avar o=0,n=0,f=0,er=0;for(var i=0;i<D.res.length;i++){if(D.res[i].pa==='Oui')o++;else if(D.res[i].pa==='Non')n++;if(D.res[i].st==='Introuvable')f++;if(D.res[i].st.indexOf('Err')===0)er++}%0Adocument.getElementById('_xO').textContent=o;document.getElementById('_xN').textContent=n;document.getElementById('_x4').textContent=f;document.getElementById('_xE').textContent=er;%0Avar el=(Date.now()-D.t0)/1000,rm=Math.round((t-c)/(c/el));document.getElementById('_paPE').textContent=rm>60?'~'+Math.floor(rm/60)+'m'+rm%2560+'s':'~'+rm+'s';%0Avar r=D.res[D.res.length-1],tb=document.getElementById('_paTb'),tr=document.createElement('tr');%0Avar pc=r.pa==='Oui'?'background:#b8fec9;color:#18753c':r.pa==='Non'?'background:#fff0e4;color:#d64d00':'background:#eee;color:#999';%0Avar sc=r.st==='OK'?'color:#18753c':r.st==='Introuvable'?'color:#999':'color:#e1000f';%0Atr.innerHTML='<td style=&amp;quot;padding:4px 8px;border-bottom:1px solid #eee;font-family:monospace&amp;quot;>'+r.s+'</td><td style=&amp;quot;padding:4px 8px;border-bottom:1px solid #eee&amp;quot;>'+esc(r.nF)+'</td><td style=&amp;quot;padding:4px 8px;border-bottom:1px solid #eee&amp;quot;>'+esc(r.nC)+'</td><td style=&amp;quot;padding:4px 8px;border-bottom:1px solid #eee&amp;quot;><span style=&amp;quot;padding:1px 8px;border-radius:8px;font-size:11px;font-weight:600;'+pc+'&amp;quot;>'+r.pa+'</span></td><td style=&amp;quot;padding:4px 8px;border-bottom:1px solid #eee;font-weight:600;'+sc+'&amp;quot;>'+r.st+'</td>';%0Atb.appendChild(tr)}%0Awindow._paXpR=function(){%0Avar d=[['SIREN','Nom (fichier)','Nom (Chorus Pro)','Plateforme Agr%C3%A9%C3%A9e','Statut','Date']];%0Avar now=new Date().toLocaleString('fr-FR');for(var i=0;i<D.res.length;i++){var r=D.res[i];d.push([r.s,r.nF,r.nC,r.pa,r.st,now])}%0Avar ws=XLSX.utils.aoa_to_sheet(d);var wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'PA');%0AXLSX.writeFile(wb,'resultats-pa-'+new Date().toISOString().slice(0,10)+'.xlsx')};%0Awindow._paXpU=function(){%0Aif(!D.oD)return;var mp={};for(var i=0;i<D.res.length;i++){var r=D.res[i];if(r.pa==='Oui'||r.pa==='Non')mp[r.s]=r.pa}%0Avar o=[];for(var i=0;i<D.oD.length;i++)o.push(D.oD[i].slice());%0Avar pi=D.pC;if(pi<0){pi=o[0].length;o[0].push('Plateforme activ%C3%A9e')}%0Afor(var i=1;i<o.length;i++){var s=String(o[i][D.sC]||'').replace(/%5CD/g,'').slice(0,9);if(mp[s]!==undefined){while(o[i].length<=pi)o[i].push('');o[i][pi]=mp[s]}}%0Avar ws=XLSX.utils.aoa_to_sheet(o);var wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Clients');%0AXLSX.writeFile(wb,'clients-pa-maj-'+new Date().toISOString().slice(0,10)+'.xlsx')};%0Afunction esc(s){return s?s.replace(/&amp;amp;/g,'&amp;amp;amp;').replace(/</g,'&amp;amp;lt;').replace(/>/g,'&amp;amp;gt;'):''}%0Afunction msg(t,m){var e=document.getElementById('_paMsg');if(!m){e.style.display='none';return}e.style.display='block';e.style.background=t==='err'?'#fff0f0':'#f0f0ff';e.style.border='1px solid '+(t==='err'?'#fcc':'#c5c5f7');e.style.color=t==='err'?'#c00':'#000091';e.textContent=m}%0Amsg('ok','Outil pr%C3%AAt ! Glissez votre fichier Excel.')%0A}%0Aif(window.XLSX)boot();else{var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';s.onload=boot;document.head.appendChild(s)}%0A}()%0A">⭐ Vérif PA Chorus</a>
+        <div class="bm-hint">☝️ <strong>Glissez</strong> ce bouton — ne cliquez pas dessus</div>
+      </div>
+
+      <div class="tip-bar">
+        <span>💡</span>
+        <span><strong>Barre de favoris invisible ?</strong> Appuyez sur <strong>Ctrl + Maj + B</strong> (Windows) ou <strong>Cmd + Maj + B</strong> (Mac)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ STEPS ═══ -->
+  <section class="steps-section">
+    <div class="section-eyebrow reveal">Mode d'emploi</div>
+    <div class="section-heading reveal">Chaque mois, en 5 étapes</div>
+    <div class="steps-timeline">
+      <div class="step reveal">
+        <div class="step-dot s1">🌐</div>
+        <div class="step-body"><strong>Ouvrez l'annuaire Chorus Pro</strong><br><span>Rendez-vous sur <a href="https://facturation.chorus-pro.gouv.fr/annuaire/" target="_blank">facturation.chorus-pro.gouv.fr/annuaire</a> et passez le CAPTCHA.</span></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot s2">⭐</div>
+        <div class="step-body"><strong>Cliquez sur le favori</strong><br><span>Cliquez sur <strong>⭐ Vérif PA Chorus</strong> dans votre barre de favoris. L'outil s'ouvre instantanément.</span></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot s3">📊</div>
+        <div class="step-body"><strong>Chargez votre fichier Excel</strong><br><span>Glissez votre fichier clients (.xlsx, .xls ou .csv) contenant une colonne SIREN.</span></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot s4">▶️</div>
+        <div class="step-body"><strong>Lancez la vérification</strong><br><span>Cliquez <strong>Lancer</strong> et laissez tourner. ~12 minutes pour 2 500 SIREN.</span></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot s5">📥</div>
+        <div class="step-body"><strong>Exportez les résultats</strong><br><span>Téléchargez le fichier résultats ou votre fichier clients mis à jour avec la colonne PA.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ RESULT ═══ -->
+  <section class="reveal">
+    <div class="result-card">
+      <div class="result-big">5 clics. <em>12 minutes.</em></div>
+      <div class="result-sub">Au lieu de 20 heures de vérification manuelle</div>
+      <div class="result-pills">
+        <span class="pill">✓ 100% gratuit</span>
+        <span class="pill">✓ Aucune installation</span>
+        <span class="pill">✓ Données Chorus Pro officielles</span>
+        <span class="pill">✓ Reste dans votre navigateur</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section class="faq-section">
+    <div class="section-eyebrow reveal">Support</div>
+    <div class="section-heading reveal">Questions fréquentes</div>
+    <div class="faq-list">
+      <details class="faq-item reveal">
+        <summary>Rien ne se passe quand je clique sur le favori</summary>
+        <p>Vérifiez que vous êtes bien sur la page <code>facturation.chorus-pro.gouv.fr/annuaire</code> et que vous avez passé le CAPTCHA. L'outil ne fonctionne que depuis ce site.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Message « session expirée »</summary>
+        <p>La session Chorus Pro dure environ 1 heure. Rechargez la page avec F5, passez à nouveau le CAPTCHA, et recliquez sur le favori ⭐</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Le bouton ne se glisse pas vers les favoris</summary>
+        <p>Assurez-vous que la barre de favoris est visible (Ctrl+Maj+B). Alternative : clic droit sur la barre → « Ajouter une page » → collez le nom et l'URL du bookmarklet.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Mon fichier n'est pas reconnu</summary>
+        <p>Le fichier doit contenir une colonne nommée « SIREN » avec des numéros à 9 chiffres. Formats acceptés : .xlsx, .xls et .csv.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Mes données clients sont-elles en sécurité ?</summary>
+        <p>L'outil fonctionne entièrement dans votre navigateur. Aucune donnée ne transite par un serveur tiers. Les requêtes sont envoyées directement à l'annuaire officiel Chorus Pro — exactement comme une recherche manuelle.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Sur quels navigateurs ça fonctionne ?</summary>
+        <p>Chrome et Edge (Chromium). Firefox est partiellement compatible. Safari n'est pas supporté actuellement.</p>
+      </details>
+    </div>
+  </section>
+
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-author">
+    <div class="footer-avatar">RF</div>
+    <div class="footer-info">
+      <div class="footer-name">Romain Froment</div>
+      <div class="footer-role">Expert-Comptable</div>
+    </div>
+  </div>
+  <div class="footer-legal">
+    Outil de vérification des Plateformes Agréées · Données <a href="https://facturation.chorus-pro.gouv.fr/annuaire/" target="_blank">annuaire Chorus Pro</a><br>
+    Partagé gratuitement à la profession · Mars 2026
+  </div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('vis')})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
